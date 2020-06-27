@@ -21,7 +21,14 @@ export class AuthService {
     );
   }
 
-  register(model: any){
+  loggedIn() {
+    if (localStorage.getItem('token')) {
+      return true;
+    }
+    return false;
+  }
+
+  register(model: any) {
     return this.http.post(this.baseUrl + 'register', model);
   }
 }
