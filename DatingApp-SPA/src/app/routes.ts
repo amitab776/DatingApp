@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { MemberListComponent } from './member-list/member-list.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ListComponent } from './list/list.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,11 @@ export const appRoutes: Routes = [
       {
         path: 'members',
         component: MemberListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'members/:id',
+        component: MemberDetailComponent,
         canActivate: [AuthGuard],
       },
       { path: 'messages', component: MessagesComponent },
