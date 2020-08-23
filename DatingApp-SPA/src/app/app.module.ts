@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgxGalleryModule } from 'ngx-gallery-9';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,6 +20,12 @@ import { MessagesComponent } from './messages/messages.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberDetailsResolver } from './_resolvers/member-detail.resolver';
+import { AlertifyjsService } from './_services/alertifyjs.service';
+import { AuthGuard } from './_guards/auth.guard';
+import { UserService } from './_services/user.service';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 
 export function GetTokenForAPI(){
   return localStorage.getItem('token');
@@ -33,7 +40,8 @@ export function GetTokenForAPI(){
     MemberListComponent,
     ListComponent,
     MessagesComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +57,19 @@ export function GetTokenForAPI(){
         whitelistedDomains: ['localhost:5000'],
         blacklistedRoutes: ['localhost:5000/api/auth']
       }
-    })
+    }),
+    NgxGalleryModule
   ],
-  providers: [AuthService, ErrorInterceptorProvider],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthService,
+    ErrorInterceptorProvider,
+    MemberDetailsResolver,
+    AlertifyjsService,
+    AuthGuard,
+    UserService,
+    MemberListResolver
+  ],
+  bootstrap: [AppComponent],
+  exports: [TabsModule]
 })
 export class AppModule {}
