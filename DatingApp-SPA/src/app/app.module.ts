@@ -26,6 +26,9 @@ import { AlertifyjsService } from './_services/alertifyjs.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export function GetTokenForAPI(){
   return localStorage.getItem('token');
@@ -41,7 +44,8 @@ export function GetTokenForAPI(){
     ListComponent,
     MessagesComponent,
     MemberCardComponent,
-    MemberDetailComponent
+    MemberDetailComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,9 @@ export function GetTokenForAPI(){
     AlertifyjsService,
     AuthGuard,
     UserService,
-    MemberListResolver
+    MemberListResolver,
+    MemberEditResolver,
+    PreventUnsavedChanges
   ],
   bootstrap: [AppComponent],
   exports: [TabsModule]

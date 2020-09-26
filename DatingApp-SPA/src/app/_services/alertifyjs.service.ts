@@ -14,7 +14,7 @@ success(message: string){
 
 confirm(message: string, okCallback: () => any){
   alertifyjs.confirm(message, (e: any) => {
-    if(e){
+    if (e){
       okCallback();
     }
     else{}

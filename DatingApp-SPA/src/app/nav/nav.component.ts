@@ -17,14 +17,15 @@ export class NavComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userName = this.authService.decodedToken.unique_name;
+  }
 
   login() {
     this.authService.login(this.model).subscribe(
       (next) => {
         this.alertify.success('Login Successful for: ' + this.model.Username);
         this.userName = this.model.Username;
-        localStorage.setItem('userName', this.userName);
       },
       (error) => {
         this.alertify.error(error);
@@ -41,7 +42,7 @@ export class NavComponent implements OnInit {
   }
 
   getUserName(): string {
-    return localStorage.getItem('userName');
+    return this.userName;
   }
 
   logOut() {
